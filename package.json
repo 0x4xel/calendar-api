@@ -1,0 +1,40 @@
+{
+	"name": "calendar-api",
+	"version": "1.0.0",
+	"description": "Api para consumir la base de datos del calendario",
+	"main": "index.js",
+	"engines": {
+		"node": ">=8.9",
+		"npm": ">=3.10.0"
+	},
+	"engineStrict": true,
+	"scripts": {
+		"lint": "./node_modules/.bin/eslint ./src",
+		"start": "node src/index.js",
+		"deve": "nodemon src/index.js"
+	},
+	"keywords": [],
+	"author": "Axel Losantos Lizaso",
+	"license": "MIT",
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"cors": "^2.8.5",
+		"dotenv": "^6.2.0",
+		"express": "^4.17.3",
+		"express-validator": "^5.3.1",
+		"jsonwebtoken": "^8.5.1",
+		"morgan": "^1.10.0",
+		"mysql2": "^1.7.0",
+		"redis": "^2.8.0",
+		"sequelize": "^4.44.4",
+		"uuid": "^3.4.0",
+		"validator": "^10.11.0",
+		"winston": "^3.6.0"
+	},
+	"devDependencies": {
+		"eslint": "^5.16.0",
+		"eslint-config-airbnb-base": "^13.2.0",
+		"eslint-plugin-import": "^2.25.4",
+		"nodemon": "^1.19.4"
+	}
+}
