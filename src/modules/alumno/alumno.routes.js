@@ -9,10 +9,10 @@ const {
 } = require('./alumno.controller');
 const isAuthenticated = require('../../middlewares/isAuthenticated');
 
-// CRUD
+// CRUD //TODO AUTENTIFICACION
 userRoutes.get('/alumno/buscar/:id',  buscarAlumnoController);
 userRoutes.post('/alumno/crear', crearAlumnoController);
-userRoutes.post('/alumno/modificar/:id', modificarAlumnoController);
+userRoutes.put('/alumno/modificar/:id', modificarAlumnoController);
 userRoutes.delete('/alumno/eliminar/:id', eliminarAlumnoController);
 
 //TODO Funciones alumno
