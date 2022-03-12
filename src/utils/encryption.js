@@ -1,6 +1,4 @@
 const jwt = require('jsonwebtoken');
-// const { logger } = require('.');
-
 if (
   !process.env.TOKEN_SECRET
   || !process.env.ACCESS_TOKEN_EXPIRY
@@ -8,7 +6,7 @@ if (
   || !process.env.REFRESH_TOKEN_EXPIRY
   || !process.env.REFRESH_TOKEN_ALGO
 ) {
-  console.error('Please set JWT ENV variables');
+  console.error('¡¡Instancia las claves de jwt en .env!!');
   process.exit(-1);
 }
 

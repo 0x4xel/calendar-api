@@ -1,6 +1,6 @@
 const hashPayload = require('./hashPayload');
 const sendResponse = require('./sendResponse');
-const handleCustomError = require('./handleCustomErrors');
+const controlErrores = require('./ControlErrores');
 const {
   createAccessToken,
   decryptAccessToken,
@@ -12,12 +12,11 @@ const {
 module.exports = {
   hashPayload,
   sendResponse,
-  handleCustomError,
+  controlErrores,
   jwt: {
     createAccessToken,
     decryptAccessToken,
     createaRefreshToken,
     decryptRefreshToken,
   },
-  // logger,
 };
