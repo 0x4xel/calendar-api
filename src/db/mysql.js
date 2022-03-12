@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 
 const AlumnoModel = require("../models/alumno.model");
+const CursoModel = require("../models/curso.model");
+
 const db = {}; 	// Inicializo la base de datos
 
 const sequelize = new Sequelize(
@@ -24,10 +26,13 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 Alumno = AlumnoModel(sequelize, Sequelize);
+Curso = CursoModel(sequelize, Sequelize);
 
 
 
 db.Alumno = Alumno;
+db.Curso = Curso;
+
 module.exports = db;
 
   
