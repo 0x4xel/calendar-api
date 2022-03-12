@@ -44,7 +44,7 @@ MySQL.sequelize
   .then(() => {
     app.listen(PORT, () => console.info(`App running at http://localhost:${PORT}`));
   })
-  .catch(err => console.log('error', "entro en error" + err));
+  .catch(err => console.log('error',err));
 
 // app.use(allRoutes);
 app.use("/", require('./routes'));
