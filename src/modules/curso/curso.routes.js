@@ -1,4 +1,4 @@
-const userRoutes = require('express').Router();
+const cursoRouter = require('express').Router();
 const {
   // controllers
   crearCursoController,
@@ -8,11 +8,11 @@ const {
 const isAuthenticated = require('../../middlewares/isAuthenticated');
 
 // CD //TODO AUTENTIFICACION
-userRoutes.post('/curso/crear', crearCursoController);
-userRoutes.delete('/curso/eliminar/:id', eliminarCursoController);
+cursoRouter.post('/curso/crear', crearCursoController);
+cursoRouter.delete('/curso/eliminar/:id', eliminarCursoController);
 
 //TODO Funciones curso
 
-userRoutes.get('/curso', getCursosController);
+cursoRouter.get('/curso', getCursosController);
 
-module.exports = userRoutes;
+module.exports = cursoRouter;
