@@ -18,6 +18,10 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.STRING
 		},
 
+		curso_id: {
+			type: Sequelize.UUID
+		},
+
 	});
 	return Alumno;
 };

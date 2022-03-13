@@ -5,7 +5,15 @@ const controlErrores = require('../../utils/ControlErrores');
 
 async function buscarAlumno({ id }) {
   console.log(id);
-  const res = await MySQL.Alumno.findByPk(id);
+  const res = await MySQL.Alumno.findByPk({
+    where: {
+      id: id
+    },
+    include: {
+       model: MySQL.Curso,
+       attributes: ["nombre"]
+    }
+  });
  
   if (!res) {
     const err = new Error(ResponseMessages.errorBusqueda);
@@ -19,13 +27,14 @@ async function buscarAlumno({ id }) {
  
 }
 
-async function crearAlumno({ nombre, primerApellido, segundoApellido }) {
+async function crearAlumno({ nombre, primerApellido, segundoApellido, curso_id }) {
 
   const alumno = await MySQL.Alumno.create(
     {
       nombre: nombre,
       primerApellido: primerApellido,
       segundoApellido: segundoApellido,
+      curso_id: curso_id
     }
   );
 

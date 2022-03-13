@@ -39,10 +39,9 @@ async function crearAlumnoController(req, res) {
     //   return sendResponse(res, 422, {}, validationErr[0].msg);
     // }
 
-    const { nombre, primerApellido, segundoApellido } = req.body;
-    console.log(req.body);
+    const { nombre, primerApellido, segundoApellido, curso_id } = req.body;
     const data = await crearAlumno({
-      nombre, primerApellido, segundoApellido
+      nombre, primerApellido, segundoApellido,curso_id
     });
 
     return sendResponse(res, 200, { ...data }, ResponseMessages.exitoCreacion);
