@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 
 const AlumnoModel = require("../models/alumno.model");
+const AsignaturaModel = require('../models/asignatura.model');
 const CursoModel = require("../models/curso.model");
 
 const db = {}; 	// Inicializo la base de datos
@@ -25,13 +26,21 @@ const sequelize = new Sequelize(
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+
+
+
 Alumno = AlumnoModel(sequelize, Sequelize);
 Curso = CursoModel(sequelize, Sequelize);
+Asignatura = AsignaturaModel(sequelize, Sequelize);
 
-
+Asignatura.belongsTo(Curso, { foreignKey: 'curso_id' });
+Curso.hasMany(Asignatura, { foreignKey: 'id' } );
 
 db.Alumno = Alumno;
 db.Curso = Curso;
+db.Asignatura = Asignatura;
+
+
 
 module.exports = db;
 

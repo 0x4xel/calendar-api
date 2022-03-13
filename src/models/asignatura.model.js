@@ -1,0 +1,19 @@
+module.exports = (sequelize, Sequelize) => {
+	const Asignatura = sequelize.define("Asignatura", {
+		id: {
+			type: Sequelize.UUID,
+			defaultValue: Sequelize.UUIDV4,
+			primaryKey: true,
+		},
+
+		nombre: {
+			type: Sequelize.STRING
+		},
+
+		curso_id: {
+			type: Sequelize.UUID
+		},
+
+	});
+	return Asignatura;
+};
