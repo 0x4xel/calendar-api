@@ -11,6 +11,9 @@ if (resultado.error) {
 
 // Modelos
 const { MySQL } = require("./db");
+const { inicializarDatabase } = require("./db/import");
+
+
 const { PORT } = process.env;	// puede que no sea necesario
 
 
@@ -45,6 +48,8 @@ MySQL.sequelize
     app.listen(PORT, () => console.info(`App running at http://localhost:${PORT}`));
   })
   .catch(err => console.log('error',err));
+
+inicializarDatabase;
 
 // app.use(allRoutes);
 app.use("/", require('./routes'));
