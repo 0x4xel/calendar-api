@@ -39,6 +39,7 @@ app.get('/', (req, res) => {
 // Before cada peticion me muestra el log 
 app.use(function(req, res, next) {
   console.log(req.protocol + "://" + req.get('host') + req.originalUrl);
+  console.log(req.body);
   return next();
 });
 
