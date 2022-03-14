@@ -38,7 +38,7 @@ async function crearHoraController(req, res) {
     // }
 
     const { hora_inicio, hora_fin } = req.body;
-
+   
     const data = await crearHora({
       hora_inicio, hora_fin
     });

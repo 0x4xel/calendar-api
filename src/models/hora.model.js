@@ -7,11 +7,11 @@ module.exports = (sequelize, Sequelize) => {
 		},
 
 		hora_inicio: {
-			type: Sequelize.DATE
+			type: Sequelize.TIME
 		},
 
 		hora_fin: {
-			type: Sequelize.DATE
+			type: Sequelize.TIME
 		}
 	});
 	return Hora;
