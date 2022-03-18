@@ -6,6 +6,10 @@ module.exports = (sequelize, Sequelize) => {
 			primaryKey: true,
 		},
 
+		dia: {
+			type: Sequelize.ENUM("Lunes", "Martes", "Miercoles", "Jueves", "Viernes"),
+		},
+
 		hora_inicio: {
 			type: Sequelize.TIME
 		},
@@ -13,6 +17,10 @@ module.exports = (sequelize, Sequelize) => {
 		hora_fin: {
 			type: Sequelize.TIME
 		}
-	});
+	},
+		{
+			timestamps: false,
+		}
+	);
 	return Hora;
 };

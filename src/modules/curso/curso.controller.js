@@ -6,7 +6,8 @@
 const {
   crearCurso,
   eliminarCurso,
-  getCursos
+  getCursos,
+  getCursosCarrera
 } = require('./curso.services');
 
 const { sendResponse, controlErrores } = require('../../utils');
@@ -20,9 +21,9 @@ async function crearCursoController(req, res) {
     //   return sendResponse(res, 422, {}, validationErr[0].msg);
     // }
 
-    const { nombre } = req.body;
+    const { nombre, carrera_id } = req.body;
 
-    const data = await crearCurso(nombre);
+    const data = await crearCurso(nombre,carrera_id);
 
     return sendResponse(res, 200, { ...data }, ResponseMessages.exitoCreacion);
   } catch (err) {
@@ -57,8 +58,21 @@ async function getCursosController(req, res) {
   }
 }
 
+async function getCursosCarreraController(req, res) {
+  try {
+
+    const { id: id } = req.params;
+    const data = await getCursosCarrera(id);
+    return sendResponse(res, 200, { ...data }, ResponseMessages.genericSuccess);
+  } catch (err) {
+    return controlErrores(res, err);
+  }
+}
+
+
 module.exports = {
   crearCursoController,
   eliminarCursoController,
   getCursosController,
+  getCursosCarreraController
 };

@@ -9,13 +9,13 @@ const {
 } = require('./asignatura.controller');
 const isAuthenticated = require('../../middlewares/isAuthenticated');
 
-// CD //TODO AUTENTIFICACION
-asignaturaRouter.get('/asignatura/buscar/:id', buscarAsignaturaController);
-asignaturaRouter.post('/asignatura/crear', crearAsignaturaController);
-asignaturaRouter.delete('/asignatura/eliminar/:id', eliminarAsignaturaController);
+// CD 
+asignaturaRouter.get('/asignatura/buscar/:id',isAuthenticated, buscarAsignaturaController);
+asignaturaRouter.post('/asignatura/crear',isAuthenticated, crearAsignaturaController);
+asignaturaRouter.delete('/asignatura/eliminar/:id',isAuthenticated, eliminarAsignaturaController);
 
 //TODO Funciones asignatura
-asignaturaRouter.get('/asignatura', getAsignaturasController);
-asignaturaRouter.get('/asignaturasCurso/:curso_id', getAsignaturasCursoController);
+asignaturaRouter.get('/asignatura', isAuthenticated, getAsignaturasController);
+asignaturaRouter.get('/asignaturasCurso/:curso_id', isAuthenticated, getAsignaturasCursoController);
 
 module.exports = asignaturaRouter;

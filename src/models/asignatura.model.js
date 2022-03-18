@@ -13,7 +13,20 @@ module.exports = (sequelize, Sequelize) => {
 		curso_id: {
 			type: Sequelize.UUID
 		},
+		
+		user_id: {
+			type: Sequelize.UUID
+		},
 
-	});
+		horas_semana:{
+			type: Sequelize.INTEGER                     
+		}
+
+	},
+		{
+			timestamps: false,
+		}
+	);
+
 	return Asignatura;
 };

@@ -22,10 +22,11 @@ async function buscarHora({ id }) {
  
 }
 
-async function crearHora({ hora_inicio, hora_fin }) {
+async function crearHora({ dia, hora_inicio, hora_fin }) {
 
   const hora = await MySQL.Hora.create(
     {
+      dia: dia,
       hora_inicio: hora_inicio,
       hora_fin: hora_fin,
     }

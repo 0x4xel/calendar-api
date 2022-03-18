@@ -9,14 +9,14 @@ const {
 } = require('./alumno.controller');
 const isAuthenticated = require('../../middlewares/isAuthenticated');
 
-// CRUD //TODO AUTENTIFICACION
-alumnoRoutes.get('/alumno/buscar/:id',  buscarAlumnoController);
-alumnoRoutes.post('/alumno/crear', crearAlumnoController);
-alumnoRoutes.put('/alumno/modificar/:id', modificarAlumnoController);
-alumnoRoutes.delete('/alumno/eliminar/:id', eliminarAlumnoController);
+// CRUD 
+alumnoRoutes.get('/alumno/buscar/:id', isAuthenticated,  buscarAlumnoController);
+alumnoRoutes.post('/alumno/crear', isAuthenticated, crearAlumnoController);
+alumnoRoutes.put('/alumno/modificar/:id', isAuthenticated, modificarAlumnoController);
+alumnoRoutes.delete('/alumno/eliminar/:id', isAuthenticated, eliminarAlumnoController);
 
 //TODO Funciones alumno
 
-alumnoRoutes.get('/alumno', getAlumnosController);
+alumnoRoutes.get('/alumno',isAuthenticated, getAlumnosController);
 
 module.exports = alumnoRoutes;

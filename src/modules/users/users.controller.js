@@ -1,35 +1,37 @@
-const {
-  validateLoginRequest,
-  validateCreateUserRequest,
-  validateChangeEmailRequest,
-  validateChangePasswordRequest,
-} = require('./users.request.validators');
+// const {
+//   validateLoginRequest,
+//   validateCreateUserRequest,
+//   validateChangeEmailRequest,
+//   validateChangePasswordRequest,
+// } = require('./users.request.validators');
 const {
   loginUser,
   createNewUser,
   changeUserEmail,
   changeUserPassword,
+  getAsignaturasUser
 } = require('./users.services');
 const { sendResponse, controlErrores } = require('../../utils');
 const ResponseMessages = require('../../constants/responseMessages');
 
 async function createNewUserController(req, res) {
   try {
-    const validationErr = validateCreateUserRequest(req);
-    if (validationErr) {
-      return sendResponse(res, 422, {}, validationErr[0].msg);
-    }
+    // const validationErr = validateCreateUserRequest(req);
+    // if (validationErr) {
+    //   return sendResponse(res, 422, {}, validationErr[0].msg);
+    // }
 
     const {
-      email, firstName, lastName, password,
+      email, password, primer_apellido,segundo_apellido
     } = req.body;
    
 
     const data = await createNewUser({
       email,
-      firstName,
-      lastName,
       password,
+      primer_apellido,
+      segundo_apellido,
+     
     });
     
     return sendResponse(res, 201, { ...data }, ResponseMessages.genericSuccess);
@@ -40,10 +42,10 @@ async function createNewUserController(req, res) {
 
 async function loginUserController(req, res) {
   try {
-    const validationErr = validateLoginRequest(req);
-    if (validationErr) {
-      return sendResponse(res, 422, {}, validationErr[0].msg);
-    }
+    // const validationErr = validateLoginRequest(req);
+    // if (validationErr) {
+    //   return sendResponse(res, 422, {}, validationErr[0].msg);
+    // }
 
     const { email, password } = req.body;
     console.log(req.body);
@@ -59,10 +61,10 @@ async function loginUserController(req, res) {
 
 async function changeUserEmailController(req, res) {
   try {
-    const validationErr = validateChangeEmailRequest(req);
-    if (validationErr) {
-      return sendResponse(res, 422, {}, validationErr[0].msg);
-    }
+    // const validationErr = validateChangeEmailRequest(req);
+    // if (validationErr) {
+    //   return sendResponse(res, 422, {}, validationErr[0].msg);
+    // }
 
     const { oldEmail, newEmail, password } = req.body;
     const { id: userId } = req.user;
@@ -81,10 +83,10 @@ async function changeUserEmailController(req, res) {
 
 async function changeUserPasswordController(req, res) {
   try {
-    const validationErr = validateChangePasswordRequest(req);
-    if (validationErr) {
-      return sendResponse(res, 422, {}, validationErr[0].msg);
-    }
+    // const validationErr = validateChangePasswordRequest(req);
+    // if (validationErr) {
+    //   return sendResponse(res, 422, {}, validationErr[0].msg);
+    // }
     
     const { oldPassword, newPassword } = req.body;
     const { id: userId } = req.user;
@@ -100,9 +102,25 @@ async function changeUserPasswordController(req, res) {
   }
 }
 
+async function getAsignaturasUserController(req, res) {
+  try {
+    
+    const { id: id } = req.params;
+
+    const data = await getAsignaturasUser(id);
+    return sendResponse(res, 200, { ...data }, ResponseMessages.genericSuccess);
+  } catch (err) {
+    return controlErrores(res, err);
+  }
+}
+
+
+
+
 module.exports = {
   createNewUserController,
   loginUserController,
   changeUserEmailController,
   changeUserPasswordController,
+  getAsignaturasUserController
 };

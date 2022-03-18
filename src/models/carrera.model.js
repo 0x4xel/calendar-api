@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-	const Curso = sequelize.define("Curso", {
+	const Carrera = sequelize.define("Carrera", {
 		id: {
 			type: Sequelize.UUID,
 			defaultValue: Sequelize.UUIDV4,
@@ -10,14 +10,10 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.STRING
 		},
 
-		carrera_id : {
-			type: Sequelize.UUID,
-		}
-
 	},
 	{
 		timestamps: false,
 	}
 );
-	return Curso;
+	return Carrera;
 };

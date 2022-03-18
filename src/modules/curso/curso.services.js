@@ -3,11 +3,12 @@ const { MySQL } = require('../../db');
 const ResponseMessages = require('../../constants/responseMessages');
 const controlErrores = require('../../utils/ControlErrores');
 
-async function crearCurso(nombre) {
+async function crearCurso(nombre,carrera_id) {
 
   const curso = await MySQL.Curso.create(
     {
       nombre: nombre,
+      carrera_id: carrera_id
     }
   );
 
@@ -33,8 +34,18 @@ async function getCursos() {
   return {cursos};
 }
 
+async function getCursosCarrera(carrera_id) {
+  const cursos = await MySQL.Curso.findAll({
+    where: {carrera_id: carrera_id },
+    include: MySQL.Carrera,
+  });
+
+  return {cursos};
+}
+
 module.exports = {
   crearCurso,
   eliminarCurso,
-  getCursos
+  getCursos,
+  getCursosCarrera
 };

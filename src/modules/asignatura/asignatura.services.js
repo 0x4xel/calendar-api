@@ -18,11 +18,13 @@ async function buscarAsignatura({ id }) {
  
 }
 
-async function crearAsignatura(nombre, curso_id) {
+async function crearAsignatura(nombre, curso_id, user_id, horas_semana) {
   const curso = await MySQL.Asignatura.create(
     {
       nombre: nombre,
-      curso_id: curso_id
+      curso_id: curso_id,
+      user_id: user_id,
+      horas_semana: horas_semana 
     }
   );
   return { curso };

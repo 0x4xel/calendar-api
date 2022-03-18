@@ -4,15 +4,17 @@ const {
   crearCursoController,
   eliminarCursoController,
   getCursosController,
+  getCursosCarreraController
 } = require('./curso.controller');
 const isAuthenticated = require('../../middlewares/isAuthenticated');
 
-// CD //TODO AUTENTIFICACION
-cursoRouter.post('/curso/crear', crearCursoController);
-cursoRouter.delete('/curso/eliminar/:id', eliminarCursoController);
+// CD 
+cursoRouter.post('/curso/crear', isAuthenticated, crearCursoController);
+cursoRouter.delete('/curso/eliminar/:id',isAuthenticated,  eliminarCursoController);
 
 //TODO Funciones curso
 
 cursoRouter.get('/curso', getCursosController);
+cursoRouter.get('/cursosCarrera/:id', getCursosCarreraController);
 
 module.exports = cursoRouter;

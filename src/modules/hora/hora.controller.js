@@ -37,10 +37,10 @@ async function crearHoraController(req, res) {
     //   return sendResponse(res, 422, {}, validationErr[0].msg);
     // }
 
-    const { hora_inicio, hora_fin } = req.body;
+    const {dia, hora_inicio, hora_fin } = req.body;
    
     const data = await crearHora({
-      hora_inicio, hora_fin
+      dia, hora_inicio, hora_fin
     });
 
     return sendResponse(res, 200, { ...data }, ResponseMessages.exitoCreacion);
@@ -92,7 +92,7 @@ async function eliminarHoraController(req, res) {
 
 async function getHorasController(req, res) {
   try {
-    const data = await getAlumnos();
+    const data = await getHoras();
     return sendResponse(res, 200, { ...data }, ResponseMessages.genericSuccess);
   } catch (err) {
     return controlErrores(res, err);

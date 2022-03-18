@@ -4,25 +4,25 @@
 
 // } = require('./users.request.validators');
 const {
-  buscarAsignatura,
-  crearAsignatura,
-  eliminarAsignatura,
-  getAsignaturas,
-  getAsignaturasCurso
-} = require('./asignatura.services');
+  buscarAsignaturaHora,
+  crearAsignaturaHora,
+  eliminarAsignaturaHora,
+  getAsignaturaHora,
+  puedeCrearAsignaturaHora
+} = require('./asignaturaHora.services');
 
 const { sendResponse, controlErrores } = require('../../utils');
 const ResponseMessages = require('../../constants/responseMessages');
 
 
-async function buscarAsignaturaController(req, res) {
+async function buscarAsignaturaHoraController(req, res) {
   try {
     // const validationErr = validateCreateUserRequest(req);
     // if (validationErr) {
     //   return sendResponse(res, 422, {}, validationErr[0].msg);
     // }
-   
-    let asignatura = await buscarAsignatura(req.params);
+
+    let asignatura = await buscarAsignaturaHora(req.params);
 
     return sendResponse(res, 201, { ...asignatura }, ResponseMessages.genericSuccess);
   } catch (err) {
@@ -30,25 +30,34 @@ async function buscarAsignaturaController(req, res) {
   }
 
 }
-async function crearAsignaturaController(req, res) {
+
+async function crearAsignaturaHoraController(req, res) {
   try {
     // const validationErr = validateLoginRequest(req);
     // if (validationErr) {
     //   return sendResponse(res, 422, {}, validationErr[0].msg);
     // }
 
-    const { nombre, curso_id, user_id, horas_semana } = req.body;
+    // tener en cuenta el numero maximo de asigntuas que se pueden crear en el horario
+    const { asignatura_id, hora_id } = req.body;
 
-    const data = await crearAsignatura(nombre, curso_id, user_id, horas_semana);
+    const puede = await puedeCrearAsignaturaHora(asignatura_id);
+    console.log(puede);
+    if (!puede) {
+      const err = new Error(ResponseMessages.errorMaximoAsignaturas);
+      err.code = 404;
+      throw err;
+    }
 
-    return sendResponse(res, 200, { ...data }, ResponseMessages.exitoCreacion);
+    const resultado = await crearAsignaturaHora(asignatura_id, hora_id);
+    
+    return sendResponse(res, 200, { ...resultado }, ResponseMessages.exitoCreacion);
   } catch (err) {
-      return controlErrores(res, err);
+    return controlErrores(res, err);
   }
 }
 
-
-async function eliminarAsignaturaController(req, res) {
+async function eliminarAsignaturaHoraController(req, res) {
   try {
     // const validationErr = validateChangePasswordRequest(req);
     // if (validationErr) {
@@ -57,7 +66,7 @@ async function eliminarAsignaturaController(req, res) {
 
     const { id: id } = req.params;
 
-    const data = await eliminarAsignatura(id);
+    const data = await eliminarAsignaturaHora(id);
 
     return sendResponse(res, 200, { ...data }, ResponseMessages.exitoBorrado);
   } catch (err) {
@@ -65,31 +74,19 @@ async function eliminarAsignaturaController(req, res) {
   }
 }
 
-async function getAsignaturasController(req, res) {
+async function getAsignaturaHoraController(req, res) {
   try {
-    const data = await getAsignaturas();
+    const data = await getAsignaturaHora();
     return sendResponse(res, 200, { ...data }, ResponseMessages.genericSuccess);
   } catch (err) {
     return controlErrores(res, err);
   }
 }
 
-async function getAsignaturasCursoController(req, res) {
-  
-  const { curso_id } = req.params;
-
-  try {
-    const data = await getAsignaturasCurso(curso_id);
-    return sendResponse(res, 200, { ...data }, ResponseMessages.genericSuccess);
-  } catch (err) {
-    return controlErrores(res, err);
-  }
-}
 
 module.exports = {
-  crearAsignaturaController,
-  eliminarAsignaturaController,
-  getAsignaturasController,
-  buscarAsignaturaController,
-  getAsignaturasCursoController
+  buscarAsignaturaHoraController,
+  crearAsignaturaHoraController,
+  eliminarAsignaturaHoraController,
+  getAsignaturaHoraController
 };

@@ -1,23 +1,22 @@
 const { MySQL } = require('../../db');
 const { hashPayload, jwt } = require('../../utils');
 
-async function createNewUser({email, password, firstName, lastName}) {
+async function createNewUser({email, password, primer_apellido, segundo_apellido }) {
   const hashedPassword = await hashPayload(password);
-  const user = await MySQL.sequelize.query(
-    'INSERT INTO users (email, password, first_name, last_name) VALUES (?, ?, ?, ?)',
+ 
+  const user = await MySQL.User.create(
     {
-      type: MySQL.sequelize.QueryTypes.INSERT,
-      replacements: [email, hashedPassword, firstName, lastName],
-    },
+      email: email,
+      password: hashedPassword,
+      nombre: nombre,
+      primer_apellido: primer_apellido,
+      segundo_apellido: segundo_apellido,
+    }
   );
-  return {
-    user: {
-      id: user[0],
-      email,
-      firstName,
-      lastName,
-    },
-  };
+
+  return { user };
+
+ 
 }
 
 async function loginUser({ email, password }) {
@@ -155,9 +154,19 @@ async function changeUserEmail({
   return {};
 }
 
+
+async function getAsignaturasUser(id) {
+  const asignaturas = await MySQL.Asignatura.findAll({
+    where: {user_id: id },
+    include: MySQL.User,
+  });
+
+  return {asignaturas};
+}
 module.exports = {
   createNewUser,
   loginUser,
   changeUserPassword,
   changeUserEmail,
+  getAsignaturasUser
 };
