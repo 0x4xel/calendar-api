@@ -5,6 +5,7 @@ const ReponseMessages = {
   errorBusqueda:' No se ha podido encontrar ningun valor',
   errorModificacion:' No se ha podido modificar la fila',
   errorBorrado:' No se ha podido borrar la fila',
+  errorMaximoAsignaturas: "El numero de horas asignada a esta asignatura excede las horas semanales",
 
   exitoCreacion:'Se ha creado la fila con exito',
   exitoModifica:'Se ha modificado la fila con exito',
