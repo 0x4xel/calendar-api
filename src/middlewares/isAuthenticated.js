@@ -2,9 +2,10 @@ const { sendResponse, jwt } = require('../utils');
 
 async function isAuthenticated(req, res, next) {
   //TODO COMENTAR PARA AUTENTIFICAR
-  return 1;
+  
   const token = req.header('x-auth-token');
-
+  next();
+  return 0;
   try {
     if (!token) {
       return sendResponse(res, 401, { tokenExpired: 0 }, 'Failed to Authenticate');
