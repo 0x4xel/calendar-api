@@ -18,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.STRING
 		},
 
-		curso_id: {
+		carrera_id: {
 			type: Sequelize.UUID
 		},
 
