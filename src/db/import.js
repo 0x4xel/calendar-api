@@ -11,13 +11,16 @@ async function inicializarDatabase() {
 		}
 	);
 
+	const evaluacion1 = await MySQL.Evaluacion.create({nombre: "Examen 1",});
+	const evaluacion2 = await MySQL.Evaluacion.create({nombre: "Foro",});
+	const evaluacion3 = await MySQL.Evaluacion.create({nombre: "Asistencia clases",});
+	const evaluacion4 = await MySQL.Evaluacion.create({nombre: "Trabajo 1",});
+	
 	const carrera = await MySQL.Carrera.create(
 		{
 			nombre: "Ingenieria informática",
 		}
 	);
-
-
 	const alumno1 = await MySQL.Alumno.create(
 		{
 			nombre: "Elena",
@@ -94,6 +97,8 @@ async function inicializarDatabase() {
 	asignatura1.addHora(hora1, {through: {notas: "CREAR"}});
 	asignatura2.addHora(hora2, {through: {notas: "CREAR"}});
 	asignatura2.addHora(hora1, {through: {notas: "CREAR"}});
+
+
 
 }
 

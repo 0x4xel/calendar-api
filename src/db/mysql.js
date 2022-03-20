@@ -6,6 +6,7 @@ const CursoModel = require("../models/curso.model");
 const HoraModel = require("../models/hora.model");
 const CarreraModel = require("../models/carrera.model");
 const UserModel = require("../models/user.model");
+const EvaluacionModel = require("../models/evaluacion.model");
 
 const db = {}; 	// Inicializo la base de datos
 
@@ -37,6 +38,7 @@ Curso = CursoModel(sequelize, Sequelize);
 Asignatura = AsignaturaModel(sequelize, Sequelize);
 Hora = HoraModel(sequelize, Sequelize);
 Carrera = CarreraModel(sequelize, Sequelize);
+Evaluacion = EvaluacionModel(sequelize, Sequelize);
 
 Alumno.belongsTo(Carrera, { foreignKey: 'carrera_id' });
 Carrera.hasMany(Alumno, { foreignKey: 'carrera_id' } );
@@ -54,11 +56,10 @@ const AsignaturaHora = db.sequelize.define('AsignaturaHora', {
 	notas: {
 	  type: Sequelize.STRING
 	}
-  })
+});
 
 Asignatura.belongsToMany(Hora, { through: "AsignaturaHora", foreignKey: 'asignatura_id' });
 Hora.belongsToMany(Asignatura, { through: "AsignaturaHora", foreignKey: 'hora_id' });
-
 
 
 Asignatura.belongsToMany(Alumno, { through: "AlumnoAsignatura", foreignKey: 'asignatura_id' });
@@ -71,6 +72,7 @@ db.Curso = Curso;
 db.Asignatura = Asignatura;
 db.Hora = Hora;
 db.Carrera = Carrera;
+db.Evaluacion = Evaluacion;
 
 
 
