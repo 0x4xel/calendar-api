@@ -13,8 +13,8 @@ evaluacionRoutes.post('/evaluacion/crear', isAuthenticated, crearEvaluacionContr
 evaluacionRoutes.put('/evaluacion/modificar/:id', isAuthenticated, modificarEvaluacionController);
 evaluacionRoutes.delete('/evaluacion/eliminar/:id', isAuthenticated, eliminarEvaluacionController);
 
-//TODO Funciones alumno
+//TODO Funciones evaluacion
 
-evaluacionRoutes.get('/evaluacion',isAuthenticated, getEvaluacionController);
+evaluacionRoutes.get('/evaluacion', isAuthenticated, getEvaluacionController);
 
 module.exports = evaluacionRoutes;
