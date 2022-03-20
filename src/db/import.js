@@ -94,11 +94,30 @@ async function inicializarDatabase() {
 	const hora1 = await crearHora();
 	const hora2 = await crearHora();
 	const hora3 = await crearHora();
+	
 	asignatura1.addHora(hora1, {through: {notas: "CREAR"}});
 	asignatura2.addHora(hora2, {through: {notas: "CREAR"}});
 	asignatura2.addHora(hora1, {through: {notas: "CREAR"}});
 
 
+	const examen1 =  await MySQL.Examen.create(
+		{
+			asignatura_id: asignatura1.id,
+			evaluacion_id: evaluacion1.id,
+			descripcion: "Examen parcial temas 1-4",
+			porcentaje: 20
+		}
+	);
+
+
+	const examen2 =  await MySQL.Examen.create(
+		{
+			asignatura_id: asignatura1.id,
+			evaluacion_id: evaluacion2.id,
+			descripcion: "Foro puntuable 1",
+			porcentaje: 10
+		}
+	);
 
 }
 

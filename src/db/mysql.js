@@ -7,6 +7,7 @@ const HoraModel = require("../models/hora.model");
 const CarreraModel = require("../models/carrera.model");
 const UserModel = require("../models/user.model");
 const EvaluacionModel = require("../models/evaluacion.model");
+const ExamenModel = require("../models/examen.model");
 
 const db = {}; 	// Inicializo la base de datos
 
@@ -23,7 +24,6 @@ const sequelize = new Sequelize(
 	  pool: {
 		idle: process.env.DB_CONNECTION_IDLE,
 	  },
-
 	},
 );
 
@@ -39,9 +39,10 @@ Asignatura = AsignaturaModel(sequelize, Sequelize);
 Hora = HoraModel(sequelize, Sequelize);
 Carrera = CarreraModel(sequelize, Sequelize);
 Evaluacion = EvaluacionModel(sequelize, Sequelize);
+Examen = ExamenModel(sequelize, Sequelize);
 
-Alumno.belongsTo(Carrera, { foreignKey: 'carrera_id' });
-Carrera.hasMany(Alumno, { foreignKey: 'carrera_id' } );
+Alumno.belongsTo(Carrera, { foreignKey: 'carrera_id' });	// alumno pertenece a una carrera
+Carrera.hasMany(Alumno, { foreignKey: 'carrera_id' } );		// carrera puede tener muchos alumno
 
 Curso.belongsTo(Carrera, { foreignKey: 'carrera_id' });
 Carrera.hasMany(Curso, { foreignKey: 'carrera_id' } );
@@ -66,6 +67,14 @@ Asignatura.belongsToMany(Alumno, { through: "AlumnoAsignatura", foreignKey: 'asi
 Alumno.belongsToMany(Asignatura, { through: "AlumnoAsignatura", foreignKey: 'alumno_id' });
 
 
+
+Examen.belongsTo(Evaluacion, { foreignKey: 'evaluacion_id' });
+Examen.belongsTo(Asignatura, { foreignKey: 'asignatura_id' });
+
+Evaluacion.hasMany(Examen, { foreignKey: 'evaluacion_id' } );
+Asignatura.hasMany(Examen, { foreignKey: 'asignatura_id' } );
+
+
 db.User = User;
 db.Alumno = Alumno;
 db.Curso = Curso;
@@ -73,6 +82,7 @@ db.Asignatura = Asignatura;
 db.Hora = Hora;
 db.Carrera = Carrera;
 db.Evaluacion = Evaluacion;
+db.Examen = Examen;
 
 
 

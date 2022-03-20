@@ -8,6 +8,7 @@ const asignaturaHoraRouter = require('../../modules/asignaturaHora/asignaturaHor
 const carreraRouter = require('../../modules/carrera/carrera.routes');
 const alumnoAsignaturaRouter = require('../../modules/alumnoAsignatura/alumnoAsignatura.routes');
 const evaluacionRoutes = require('../../modules/evaluacion/evaluacion.routes');
+const examenRoutes = require('../../modules/examen/examen.routes');
 
 
 // Rutas de cada modelo. Se utilizará un handler de cada Ruta del modelo (CRUD)
@@ -21,5 +22,6 @@ allRoutes.use(asignaturaHoraRouter);
 allRoutes.use(carreraRouter);
 allRoutes.use(alumnoAsignaturaRouter);
 allRoutes.use(evaluacionRoutes);
+allRoutes.use(examenRoutes);
 
 module.exports = allRoutes;
