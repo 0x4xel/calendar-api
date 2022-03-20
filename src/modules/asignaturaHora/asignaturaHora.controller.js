@@ -8,7 +8,8 @@ const {
   crearAsignaturaHora,
   eliminarAsignaturaHora,
   getAsignaturaHora,
-  puedeCrearAsignaturaHora
+  puedeCrearAsignaturaHora,
+  modificarAsignaturaHora
 } = require('./asignaturaHora.services');
 
 const { sendResponse, controlErrores } = require('../../utils');
@@ -39,7 +40,7 @@ async function crearAsignaturaHoraController(req, res) {
     // }
 
     // tener en cuenta el numero maximo de asigntuas que se pueden crear en el horario
-    const { asignatura_id, hora_id } = req.body;
+    const { asignatura_id, hora_id, notas } = req.body;
 
     const puede = await puedeCrearAsignaturaHora(asignatura_id);
     console.log(puede);
@@ -49,13 +50,33 @@ async function crearAsignaturaHoraController(req, res) {
       throw err;
     }
 
-    const resultado = await crearAsignaturaHora(asignatura_id, hora_id);
+    const resultado = await crearAsignaturaHora(asignatura_id, hora_id, notas);
     
     return sendResponse(res, 200, { ...resultado }, ResponseMessages.exitoCreacion);
   } catch (err) {
     return controlErrores(res, err);
   }
 }
+
+
+async function modificarAsignaturaHoraController(req, res) {
+  try {
+    // const validationErr = validateLoginRequest(req);
+    // if (validationErr) {
+    //   return sendResponse(res, 422, {}, validationErr[0].msg);
+    // }
+
+    // tener en cuenta el numero maximo de asigntuas que se pueden crear en el horario
+    const { asignatura_id, hora_id, notas } = req.body;
+
+    const resultado = await modificarAsignaturaHora(asignatura_id, hora_id, notas);
+    
+    return sendResponse(res, 200, { ...resultado }, ResponseMessages.exitoModifica);
+  } catch (err) {
+    return controlErrores(res, err);
+  }
+}
+
 
 async function eliminarAsignaturaHoraController(req, res) {
   try {
@@ -87,6 +108,8 @@ async function getAsignaturaHoraController(req, res) {
 module.exports = {
   buscarAsignaturaHoraController,
   crearAsignaturaHoraController,
+  modificarAsignaturaHoraController,
   eliminarAsignaturaHoraController,
-  getAsignaturaHoraController
+  getAsignaturaHoraController,
+  
 };
