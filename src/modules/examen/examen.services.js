@@ -71,10 +71,16 @@ async function eliminarExamen(id) {
   return {res};
 }
 
-//TODO CARGAR EXAMENES DE UNA ASIGNATURA
-async function getExamenesAsignatura() {
-  const alumnos = await MySQL.Alumno.findAll();
-  return {alumnos};
+
+async function getExamenesAsignatura(asignatura_id) {
+  const examenes = await MySQL.Asignatura.findAll({
+    where: {
+      id: asignatura_id
+    },
+    include: [ MySQL.Examen]
+  });
+
+  return examenes;
 }
 
 module.exports = {
