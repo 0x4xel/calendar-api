@@ -154,11 +154,11 @@ async function changeUserEmail({
   return {};
 }
 
-
+//TODO ELIMINAR DATOS DEL USUARIO (CONTRASEÑA HASHEADA)
 async function getAsignaturasUser(id) {
   const asignaturas = await MySQL.Asignatura.findAll({
     where: {user_id: id },
-    include: MySQL.User,
+    include: [MySQL.User, MySQL.Hora]
   });
 
   return {asignaturas};

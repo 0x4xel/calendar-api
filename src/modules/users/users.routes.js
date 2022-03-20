@@ -4,7 +4,8 @@ const {
   createNewUserController,
   changeUserEmailController,
   changeUserPasswordController,
-  getAsignaturasUserController
+  getAsignaturasUserController,
+  getAsignaturasHorasUserController
 } = require('./users.controller');
 const isAuthenticated = require('../../middlewares/isAuthenticated');
 
@@ -14,6 +15,7 @@ userRoutes.patch('/users/email', isAuthenticated, changeUserEmailController);
 userRoutes.patch('/users/password', isAuthenticated, changeUserPasswordController);
 
 userRoutes.get('/userAsignaturas/:id', getAsignaturasUserController);
+userRoutes.get('/user/asignatura/hora/:id', getAsignaturasHorasUserController);
 
 
 module.exports = userRoutes;

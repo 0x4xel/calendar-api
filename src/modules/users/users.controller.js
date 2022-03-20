@@ -114,6 +114,18 @@ async function getAsignaturasUserController(req, res) {
   }
 }
 
+async function getAsignaturasHorasUserController(req, res) {
+  try {
+    
+    const { id: id } = req.params;
+
+    const data = await getAsignaturasUser(id);
+    return sendResponse(res, 200, { ...data }, ResponseMessages.genericSuccess);
+  } catch (err) {
+    return controlErrores(res, err);
+  }
+}
+
 
 
 
@@ -122,5 +134,6 @@ module.exports = {
   loginUserController,
   changeUserEmailController,
   changeUserPasswordController,
-  getAsignaturasUserController
+  getAsignaturasUserController,
+  getAsignaturasHorasUserController
 };
