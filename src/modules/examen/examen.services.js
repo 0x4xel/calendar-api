@@ -4,10 +4,9 @@ const ResponseMessages = require('../../constants/responseMessages');
 const controlErrores = require('../../utils/ControlErrores');
 
 async function buscarExamen({ id }) {
-  console.log(id);
   const res = await MySQL.Examen.findAll({
     where: {
-      id: id
+      id: id,
     },
     include: [MySQL.Asignatura, MySQL.Evaluacion]
   });
@@ -24,25 +23,27 @@ async function buscarExamen({ id }) {
  
 }
 
-async function crearExamen({ asignatura_id, evaluacion_id, descripcion, porcentaje }) {
+async function crearExamen({ asignatura_id, evaluacion_id, descripcion, porcentaje, fecha }) {
 
   const examen = await MySQL.Examen.create(
     {
       asignatura_id: asignatura_id,
       evaluacion_id: evaluacion_id,
       descripcion: descripcion,
-      porcentaje: porcentaje
+      porcentaje: porcentaje,
+      fecha: fecha
     }
   );
 
   return { examen };
 }
 
-async function modificarExamen(id, descripcion, porcentaje){
+async function modificarExamen(id, descripcion, porcentaje, fecha){
 
   const res = await MySQL.Examen.update({
     descripcion: descripcion,
     porcentaje: porcentaje,
+    fecha: fecha
   }, {
     where: { id: id}
   });

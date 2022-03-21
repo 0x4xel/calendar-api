@@ -1,17 +1,20 @@
 module.exports = (sequelize, Sequelize) => {
 	const Examen = sequelize.define("Examen", {
+
 		id: {
 			type: Sequelize.UUID,
 			defaultValue: Sequelize.UUIDV4,
-			primaryKey: true,
+			unique:true,
 		},
 
 		asignatura_id: {
 			type: Sequelize.UUID,
+			primaryKey: true,
 		},
 
 		evaluacion_id: {
-			type: Sequelize.UUID
+			type: Sequelize.UUID,
+			primaryKey: true,
 		},
 
 		descripcion: {
@@ -20,6 +23,10 @@ module.exports = (sequelize, Sequelize) => {
 
 		porcentaje: {
 			type: Sequelize.INTEGER
+		},
+
+		fecha: {
+			type: Sequelize.DATE
 		},
 	},
 	

@@ -40,28 +40,9 @@ async function crearExamenController(req, res) {
     //   return sendResponse(res, 422, {}, validationErr[0].msg);
     // }
 
-
-    /**
-     * 
-		asignatura_id: {
-			type: Sequelize.UUID,
-		},
-
-		evaluacion_id: {
-			type: Sequelize.UUID
-		},
-
-		descripcion: {
-			type:Sequelize.STRING
-		},
-
-		porcentaje: {
-			type: Sequelize.INTEGER
-		},
-     */
-    const { asignatura_id, evaluacion_id, descripcion, porcentaje } = req.body;
+    const { asignatura_id, evaluacion_id, descripcion, porcentaje, fecha } = req.body;
     const data = await crearExamen({
-      asignatura_id, evaluacion_id, descripcion, porcentaje
+      asignatura_id, evaluacion_id, descripcion, porcentaje, fecha
     });
 
     return sendResponse(res, 200, { ...data }, ResponseMessages.exitoCreacion);
@@ -77,11 +58,11 @@ async function modificarExamenController(req, res) {
     //   return sendResponse(res, 422, {}, validationErr[0].msg);
     // }
 
-    const { descripcion, porcentaje } = req.body;
+    const { descripcion, porcentaje, fecha } = req.body;
     const { id: id } = req.params;
 
   
-    const data = await modificarExamen(id, descripcion, porcentaje);
+    const data = await modificarExamen(id, descripcion, porcentaje,fecha);
     
     return sendResponse(res, 200, { ...data }, ResponseMessages.exitoModifica);
   } catch (err) {
