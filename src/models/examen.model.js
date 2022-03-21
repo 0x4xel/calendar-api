@@ -4,17 +4,16 @@ module.exports = (sequelize, Sequelize) => {
 		id: {
 			type: Sequelize.UUID,
 			defaultValue: Sequelize.UUIDV4,
-			unique:true,
+			primaryKey: true,
 		},
 
 		asignatura_id: {
 			type: Sequelize.UUID,
-			primaryKey: true,
 		},
 
 		evaluacion_id: {
 			type: Sequelize.UUID,
-			primaryKey: true,
+		
 		},
 
 		descripcion: {
@@ -22,7 +21,10 @@ module.exports = (sequelize, Sequelize) => {
 		},
 
 		porcentaje: {
-			type: Sequelize.INTEGER
+			type: Sequelize.INTEGER,
+			max: 100,                  
+      		min: 1,
+			notEmpty: false,    
 		},
 
 		fecha: {
