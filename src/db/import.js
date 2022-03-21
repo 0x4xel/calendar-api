@@ -87,17 +87,17 @@ async function inicializarDatabase() {
 		}
 	);
 
-	alumno1.addAsignatura(asignatura1);
-	alumno1.addAsignatura(asignatura2);
+	await alumno1.addAsignatura(asignatura1);
+	await alumno1.addAsignatura(asignatura2);
 	
 
 	const hora1 = await crearHora();
 	const hora2 = await crearHora();
 	const hora3 = await crearHora();
 	
-	asignatura1.addHora(hora1, {through: {notas: "CREAR"}});
-	asignatura2.addHora(hora2, {through: {notas: "CREAR"}});
-	asignatura2.addHora(hora1, {through: {notas: "CREAR"}});
+	await asignatura1.addHora(hora1, {through: {notas: "CREAR"}});
+	await asignatura2.addHora(hora2, {through: {notas: "CREAR"}});
+	await asignatura2.addHora(hora1, {through: {notas: "CREAR"}});
 
 
 	const examen1 =  await MySQL.Examen.create(
@@ -105,22 +105,48 @@ async function inicializarDatabase() {
 			asignatura_id: asignatura1.id,
 			evaluacion_id: evaluacion1.id,
 			descripcion: "Examen parcial temas 1-4",
-			porcentaje: 20
+			porcentaje: 20,
+			fecha: new Date()
 		}
 	);
-
 
 	const examen2 =  await MySQL.Examen.create(
 		{
 			asignatura_id: asignatura1.id,
 			evaluacion_id: evaluacion2.id,
 			descripcion: "Foro puntuable 1",
-			porcentaje: 10
+			porcentaje: 10,
+			fecha: new Date()
+		}
+	);
+
+	const examenAlumno = await MySQL.ExamenAlumno.create(
+		{
+			alumno_id: alumno1.id,
+			examen_id: examen1.id,
+			nota: 9
+		}
+	);
+
+	const examenAlumno2 =  await MySQL.ExamenAlumno.create(
+		{
+			alumno_id: alumno1.id,
+			examen_id: examen2.id,
+			nota: 2
+		}
+	);
+	
+	const examenAlumno3 =  await MySQL.ExamenAlumno.create(
+		{
+			alumno_id: alumno2.id,
+			examen_id: examen1.id,
+			nota: 1
 		}
 	);
 
 }
 
+//TODO EXPORTAR A FUNCIONES EN /utils
 function getDiaRandom() {
 
 	const diasHabiles = ["Lunes", "Martes", "miercoles", "jueves", "viernes"];
