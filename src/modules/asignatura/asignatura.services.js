@@ -4,7 +4,37 @@ const ResponseMessages = require('../../constants/responseMessages');
 const controlErrores = require('../../utils/ControlErrores');
 
 async function buscarAsignatura({ id }) {
-  const res = await MySQL.Asignatura.findByPk(id);
+  const res = await MySQL.Asignatura.findAll({
+    where: {
+      id: id
+    },
+    include: [ {
+      model: MySQL.Curso,
+      include : {
+        model:  MySQL.Carrera
+      }
+    }, {
+      model:MySQL.Hora,
+    },
+    {
+      model:MySQL.Alumno,
+    },
+    {
+      model:MySQL.Examen,
+      include : {
+        model:  MySQL.Evaluacion
+      },
+      
+    } 
+    ],
+    order: [
+      [MySQL.Examen, 'fecha', 'ASC'],
+      [MySQL.Examen, 'porcentaje', 'DESC'],
+      [MySQL.Examen, 'descripcion', 'ASC']
+    ]
+    
+  }
+  );
  
   if (!res) {
     const err = new Error(ResponseMessages.errorBusqueda);

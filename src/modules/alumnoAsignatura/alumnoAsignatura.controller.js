@@ -8,7 +8,8 @@ const {
   crearAlumnoAsignatura,
   eliminarAlumnoAsignatura,
   getAlumnosAsignatura,
-  getAsignaturasAlumno
+  getAsignaturasAlumno,
+  
 } = require('./alumnoAsignatura.services');
 
 const { sendResponse, controlErrores } = require('../../utils');
@@ -87,10 +88,14 @@ async function getAsignaturasAlumnoController(req, res) {
 }
 
 
+
+
+
 module.exports = {
   buscarAlumnoAsignaturaController,
   crearAlumnoAsignaturaController,
   eliminarAlumnoAsignaturaController,
   getAlumnosAsignaturaController,
-  getAsignaturasAlumnoController
+  getAsignaturasAlumnoController,
+  
 };

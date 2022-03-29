@@ -4,21 +4,21 @@ const ResponseMessages = require('../../constants/responseMessages');
 const controlErrores = require('../../utils/ControlErrores');
 
 async function buscarExamen({ id }) {
-  const res = await MySQL.Examen.findAll({
+  const examen = await MySQL.Examen.findAll({
     where: {
       id: id,
     },
     include: [MySQL.Asignatura, MySQL.Evaluacion]
   });
  
-  if (!res) {
+  if (!examen) {
     const err = new Error(ResponseMessages.errorBusqueda);
     err.code = 404;
     throw err;
   };
 
   return {
-    res: res,
+    examen: examen,
   };
  
 }
@@ -38,9 +38,10 @@ async function crearExamen({ asignatura_id, evaluacion_id, descripcion, porcenta
   return { examen };
 }
 
-async function modificarExamen(id, descripcion, porcentaje, fecha){
+async function modificarExamen(id, evaluacion_id, descripcion, porcentaje, fecha){
 
   const res = await MySQL.Examen.update({
+    evaluacion_id: evaluacion_id,
     descripcion: descripcion,
     porcentaje: porcentaje,
     fecha: fecha
@@ -59,6 +60,8 @@ async function modificarExamen(id, descripcion, porcentaje, fecha){
 
 
 async function eliminarExamen(id) {
+  console.log(id);
+  console.log("encima");
   const res = await MySQL.Examen.destroy({
     where: { id: id }
   })
@@ -78,7 +81,13 @@ async function getExamenesAsignatura(asignatura_id) {
     where: {
       id: asignatura_id
     },
-    include: [ MySQL.Examen]
+    include : {
+      model:  MySQL.Examen,
+    },
+    order: [
+      [MySQL.Examen, 'fecha', 'DESC']
+    ]
+  
   });
 
   return examenes;

@@ -7,6 +7,7 @@ const ReponseMessages = {
   errorBorrado:' No se ha podido borrar la fila',
   errorMaximoAsignaturas: "El numero de horas asignada a esta asignatura excede las horas semanales",
   errorPorcentajeMaximo: "La suma de los porcentajes no debe ser mayor que 100",
+  errorNotaInvalida: "La nota debe estar comprendida entre 0 y 10",
 
   exitoCreacion:'Se ha creado la fila con exito',
   exitoModifica:'Se ha modificado la fila con exito',

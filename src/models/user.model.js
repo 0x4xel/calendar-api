@@ -6,6 +6,14 @@ module.exports = (sequelize, Sequelize) => {
 			primaryKey: true,
 		},
 
+		email: {
+			type: Sequelize.STRING
+		}, 
+		
+		password: {
+			type: Sequelize.STRING
+		},
+
 		nombre: {
 			type: Sequelize.STRING
 		},
@@ -15,10 +23,6 @@ module.exports = (sequelize, Sequelize) => {
 		},
 
 		segundo_apellido: {
-			type: Sequelize.STRING
-		},
-
-		password: {
 			type: Sequelize.STRING
 		},
 

@@ -4,17 +4,36 @@ const ResponseMessages = require('../../constants/responseMessages');
 const controlErrores = require('../../utils/ControlErrores');
 
 async function buscarAlumno({ id }) {
-  console.log(id);
-  const res = await MySQL.Alumno.findByPk({
+  const res = await MySQL.Alumno.findAll({
     where: {
       id: id
     },
-    include: {
-       model: MySQL.Curso,
-       attributes: ["nombre"]
-    }
+    include: [{
+      model: MySQL.Asignatura,
+      include : {
+        model:  MySQL.Curso
+      },
+    },
+    {
+      model: MySQL.ExamenAlumno,
+      include : {
+        model:  MySQL.Examen,
+        include : {
+          model:  MySQL.Evaluacion
+        },
+      },
+      order: [
+        [MySQL.Examen, 'fecha', 'ASC']
+      ]
+      
+    },
+    {
+      model: MySQL.Carrera,
+    }],
+   
+    
   });
- 
+
   if (!res) {
     const err = new Error(ResponseMessages.errorBusqueda);
     err.code = 404;
@@ -24,7 +43,7 @@ async function buscarAlumno({ id }) {
   return {
     alumno: res,
   };
- 
+
 }
 
 async function crearAlumno({ nombre, primerApellido, segundoApellido, curso_id }) {
@@ -50,7 +69,7 @@ async function modificarAlumno(
     primerApellido: primerApellido,
     segundoApellido: segundoApellido,
   }, {
-    where: { id: id}
+    where: { id: id }
   });
 
   if (res != 1) {
@@ -59,7 +78,7 @@ async function modificarAlumno(
     throw err;
   }
 
-  return {res};
+  return { res };
 }
 
 
@@ -68,19 +87,35 @@ async function eliminarAlumno(id) {
   const res = await MySQL.Alumno.destroy({
     where: { id: id }
   })
- 
+
   if (res != 1) {
     const err = new Error(ResponseMessages.errorBorrado);
     err.code = 404;
     throw err;
   }
 
-  return {res};
+  return { res };
 }
 
-async function getAlumnos() {
-  const alumnos = await MySQL.Alumno.findAll();
-  return {alumnos};
+async function getAlumnos(id) {
+  const alumnos = await MySQL.Alumno.findAll( {
+ 
+    include: [{
+      model: MySQL.Asignatura,
+      required: true,
+      include : {
+        model:  MySQL.User,
+        required: true,
+        where: { "id": id }
+      },
+    }],
+  });
+
+
+  return {
+    alumnos: alumnos,
+  };
+  
 }
 
 module.exports = {

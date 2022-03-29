@@ -94,7 +94,8 @@ async function eliminarAlumnoController(req, res) {
 
 async function getAlumnosController(req, res) {
   try {
-    const data = await getAlumnos();
+    const { id: id } = req.params;
+    const data = await getAlumnos(id);
     return sendResponse(res, 200, { ...data }, ResponseMessages.genericSuccess);
   } catch (err) {
     return controlErrores(res, err);

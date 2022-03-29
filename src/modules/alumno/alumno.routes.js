@@ -17,6 +17,6 @@ alumnoRoutes.delete('/alumno/eliminar/:id', isAuthenticated, eliminarAlumnoContr
 
 //TODO Funciones alumno
 
-alumnoRoutes.get('/alumno',isAuthenticated, getAlumnosController);
+alumnoRoutes.get('/userAlumnos/:id',isAuthenticated, getAlumnosController);
 
 module.exports = alumnoRoutes;

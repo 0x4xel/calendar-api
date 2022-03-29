@@ -14,8 +14,9 @@ const {
 const { sendResponse, controlErrores } = require('../../utils');
 const ResponseMessages = require('../../constants/responseMessages');
 const { MySQL } = require('../../db');
+const { Console } = require('winston/lib/winston/transports');
 //const SequelizeController = require("../../db/SequelizeController");
-
+const { Op } = require("sequelize");
 
 async function buscarExamenController(req, res) {
 
@@ -41,7 +42,9 @@ async function crearExamenController(req, res) {
     //   return sendResponse(res, 422, {}, validationErr[0].msg);
     // }
 
+
     // busco los % actuales del examen
+
     const { asignatura_id, evaluacion_id, descripcion, porcentaje, fecha } = req.body;
 
     const examenesAsignatura = await MySQL.Examen.findAll({
@@ -51,11 +54,12 @@ async function crearExamenController(req, res) {
     });
 
     let totalPorcentaje = examenesAsignatura.reduce(function(valorAnterior, valorActual, indice, vector){
+     
       return valorAnterior.porcentaje + valorActual.porcentaje;
     });
-
+  
     totalPorcentaje = totalPorcentaje + porcentaje;
-
+   
     if (totalPorcentaje > 100) {
       const err = new Error(ResponseMessages.errorPorcentajeMaximo);
       err.code = 404;
@@ -72,18 +76,40 @@ async function crearExamenController(req, res) {
   }
 }
 
+//TODO CONTROLAR MAXIMO DE PORCENTAJE error
 async function modificarExamenController(req, res) {
   try {
     // const validationErr = validateChangeEmailRequest(req);
     // if (validationErr) {
     //   return sendResponse(res, 422, {}, validationErr[0].msg);
     // }
-
-    const { descripcion, porcentaje, fecha } = req.body;
+    
+    const {asignatura_id, evaluacion_id, descripcion, porcentaje, fecha } = req.body;
     const { id: id } = req.params;
 
+    const examenesAsignatura = await MySQL.Examen.findAll({
+      where: {
+        asignatura_id: asignatura_id,
+        id: {
+          [Op.ne]: id 
+        }
+      },
+    });
 
-    const data = await modificarExamen(id, descripcion, porcentaje, fecha);
+    let totalPorcentaje = examenesAsignatura.reduce(function(valorAnterior, valorActual, indice, vector){
+      return valorAnterior.porcentaje + valorActual.porcentaje;
+    });
+    
+
+    totalPorcentaje = totalPorcentaje + porcentaje;
+    console.log(totalPorcentaje);
+    if (totalPorcentaje > 100) {
+      const err = new Error(ResponseMessages.errorPorcentajeMaximo);
+      err.code = 404;
+      throw err;
+    }
+
+    const data = await modificarExamen(id, evaluacion_id, descripcion, porcentaje, fecha);
 
     return sendResponse(res, 200, { ...data }, ResponseMessages.exitoModifica);
   } catch (err) {
@@ -99,7 +125,7 @@ async function eliminarExamenController(req, res) {
     // }
 
     const { id: id } = req.params;
-
+    console.log(id);
     const data = await eliminarExamen(id);
     return sendResponse(res, 200, { ...data }, ResponseMessages.exitoBorrado);
   } catch (err) {

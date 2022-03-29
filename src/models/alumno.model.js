@@ -17,6 +17,10 @@ module.exports = (sequelize, Sequelize) => {
 		segundoApellido: {
 			type: Sequelize.STRING
 		},
+		
+		picture: {
+			type: Sequelize.STRING
+		},
 
 		carrera_id: {
 			type: Sequelize.UUID

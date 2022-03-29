@@ -8,7 +8,10 @@ const {
   crearExamenAlumno,
   modificarExamenAlumno,
   eliminarExamenAlumno,
-  getExamenesAlumno
+  getExamenesAlumno,
+  getNotasAsignaturaAlumno,
+  getAlumnosExamenAsignatura,
+  modificarExamenAlumnoMasivo
 } = require('./examenAlumno.services');
 
 const { sendResponse, controlErrores } = require('../../utils');
@@ -60,6 +63,13 @@ async function modificarExamenAlumnoController(req, res) {
     const { nota } = req.body;
     const { id: id } = req.params;
 
+    if (nota < 0  || nota > 10) {
+      const err = new Error(ResponseMessages.errorNotaInvalida);
+      err.code = 400;
+      throw err;
+    }
+  
+
   
     const data = await modificarExamenAlumno(id, nota);
     
@@ -94,10 +104,46 @@ async function getExamenesAlumnoController(req, res) {
   }
 }
 
+
+async function getNotasAsignaturaAlumnoController(req, res) {
+  try {
+    const { asignatura_id: asignatura_id, alumno_id: alumno_id } = req.params;
+    const data = await getNotasAsignaturaAlumno(asignatura_id, alumno_id);
+    return sendResponse(res, 200, { ...data }, ResponseMessages.genericSuccess);
+  } catch (err) {
+    return controlErrores(res, err);
+  }
+}
+
+async function getAlumnosExamenAsignaturaController(req, res) {
+  try {
+    const { asignatura_id: asignatura_id, examen_id: examen_id } = req.params;
+    const data = await getAlumnosExamenAsignatura(asignatura_id, examen_id);
+    return sendResponse(res, 200, { ...data }, ResponseMessages.genericSuccess);
+  } catch (err) {
+    return controlErrores(res, err);
+  }
+}
+
+async function modificarExamenAlumnoMasivoController(req, res) {
+  try {
+    const { asignatura_id:asignatura_id,examen_id: examen_id } = req.params;
+    const { notas } = req.body;
+    const data = await modificarExamenAlumnoMasivo(asignatura_id,examen_id, notas);
+    return sendResponse(res, 200, { ...data }, ResponseMessages.exitoModifica);
+  } catch (err) {
+    return controlErrores(res, err);
+  }
+}
+
+
 module.exports = {
   buscarExamenAlumnoController,
   crearExamenAlumnoController,
   modificarExamenAlumnoController,
   eliminarExamenAlumnoController,
   getExamenesAlumnoController,
+  getNotasAsignaturaAlumnoController,
+  getAlumnosExamenAsignaturaController,
+  modificarExamenAlumnoMasivoController
 };
