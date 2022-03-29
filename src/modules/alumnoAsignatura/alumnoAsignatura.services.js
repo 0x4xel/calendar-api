@@ -90,6 +90,9 @@ async function getAsignaturasAlumno(alumno_id) {
   return asignaturaAlumno;
 }
 
+
+
+
 module.exports = {
   buscarAlumnoAsignatura,
   crearAlumnoAsignatura,

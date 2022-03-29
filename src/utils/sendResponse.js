@@ -1,19 +1,4 @@
-/**
- * @function
- *
- * This function is a response sending wrapper
- * Instead of writing extra repetitive lines
- * use this wrapper
- *
- * Made with DRY in mind
- *
- * @author Ashok Dey <https://github.com/ashokdey>
- *
- * @param {object} res the response object
- * @param {number} statusCode the http status code
- * @param {array | object } data the data you want to send with the response
- * @param {string} message the message you want to send for success/failure
- */
+
 
 function sendResponse(res, statusCode, data = {}, message) {
   if (typeof statusCode !== 'number') {

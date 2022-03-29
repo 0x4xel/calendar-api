@@ -20,11 +20,20 @@ const { PORT } = process.env;	// puede que no sea necesario
 
 // creo la app
 const app = express();
+app.use(cors({ origin: "*" })); // Do this first
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
-app.disable('x-powered-by');
-app.use(requestValidator());
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
+});
+
+// app.disable('x-powered-by');
+// app.use(requestValidator());
 
 
 // Rutas 
@@ -44,11 +53,11 @@ app.use(function (req, res, next) {
 });
 
 MySQL.sequelize
-  .sync({force: true})
+  .sync({force: false})
   .then(() => {
-    app.listen(PORT, () => console.info(`App running at http://localhost:${PORT}`));
+    app.listen(PORT, '192.168.0.18',() => console.info(`App running at http://localhost:${PORT}`));
     //MySQL.sequelize.drop(); // drop all tables in the db
-    inicializarDatabase();
+    // inicializarDatabase();
     console.info("Base de datos actualizada");
    
   }).then(() => {
