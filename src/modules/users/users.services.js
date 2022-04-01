@@ -158,7 +158,7 @@ async function changeUserEmail({
 async function getAsignaturasUser(id) {
   const asignaturas = await MySQL.Asignatura.findAll({
     where: {user_id: id },
-    include: [MySQL.User, MySQL.Hora]
+    include: [MySQL.User, MySQL.Hora],
   });
 
   return {asignaturas};

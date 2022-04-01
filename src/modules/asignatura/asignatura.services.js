@@ -18,6 +18,7 @@ async function buscarAsignatura({ id }) {
     },
     {
       model:MySQL.Alumno,
+      order: [['nombre', 'ASC'] ,['primerApellido', 'DESC'] , ['segundoApellido', 'DESC']],
     },
     {
       model:MySQL.Examen,
@@ -28,9 +29,12 @@ async function buscarAsignatura({ id }) {
     } 
     ],
     order: [
+      [MySQL.Alumno, 'nombre', 'asc'],
+      [MySQL.Alumno, 'primerApellido', 'asc'],
       [MySQL.Examen, 'fecha', 'ASC'],
       [MySQL.Examen, 'porcentaje', 'DESC'],
-      [MySQL.Examen, 'descripcion', 'ASC']
+      [MySQL.Examen, 'descripcion', 'ASC'],
+      [MySQL.Examen, 'descripcion', 'ASC'],
     ]
     
   }
