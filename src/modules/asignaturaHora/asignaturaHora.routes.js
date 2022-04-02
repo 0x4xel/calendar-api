@@ -15,7 +15,7 @@ asignaturaHoraRouter.post('/asignaturaHora/crear',isAuthenticated, crearAsignatu
 asignaturaHoraRouter.post('/asignaturaHora/modificar',isAuthenticated, modificarAsignaturaHoraController);
 asignaturaHoraRouter.delete('/asignaturaHora/eliminar/:id',isAuthenticated, eliminarAsignaturaHoraController);
 
-//TODO Funciones asignatura
+
 asignaturaHoraRouter.get('/asignaturaHora', isAuthenticated, getAsignaturaHoraController);
 
 module.exports = asignaturaHoraRouter;

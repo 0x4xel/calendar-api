@@ -1,8 +1,3 @@
-// const {
-//  // validadores (no se si usarlos)
-
-
-// } = require('./users.request.validators');
 const {
   buscarAlumno,
   crearAlumno,
@@ -13,17 +8,11 @@ const {
 
 const { sendResponse, controlErrores } = require('../../utils');
 const ResponseMessages = require('../../constants/responseMessages');
-//const SequelizeController = require("../../db/SequelizeController");
 
 
 async function buscarAlumnoController(req, res) {
 
   try {
-    // const validationErr = validateCreateUserRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
-   
     let alumno = await buscarAlumno(req.params);
 
     return sendResponse(res, 201, { ...alumno }, ResponseMessages.genericSuccess);
@@ -34,14 +23,11 @@ async function buscarAlumnoController(req, res) {
 
 async function crearAlumnoController(req, res) {
   try {
-    // const validationErr = validateLoginRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+    
 
-    const { nombre, primerApellido, segundoApellido, curso_id } = req.body;
+    const { nombre, primerApellido, segundoApellido, curso_id , picture } = req.body;
     const data = await crearAlumno({
-      nombre, primerApellido, segundoApellido,curso_id
+      nombre, primerApellido, segundoApellido,curso_id, picture
     });
 
     return sendResponse(res, 200, { ...data }, ResponseMessages.exitoCreacion);
@@ -52,12 +38,9 @@ async function crearAlumnoController(req, res) {
 
 async function modificarAlumnoController(req, res) {
   try {
-    // const validationErr = validateChangeEmailRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+     
 
-    const { nombre, primerApellido, segundoApellido } = req.body;
+    const { nombre, primerApellido, segundoApellido, picture } = req.body;
     const { id: id } = req.params;
 
   
@@ -66,6 +49,7 @@ async function modificarAlumnoController(req, res) {
       nombre,
       primerApellido,
       segundoApellido,
+      picture
     );
     
     return sendResponse(res, 200, { ...data }, ResponseMessages.exitoModifica);
@@ -76,10 +60,7 @@ async function modificarAlumnoController(req, res) {
 
 async function eliminarAlumnoController(req, res) {
   try {
-    // const validationErr = validateChangePasswordRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+     
 
     const { id: id } = req.params;
 

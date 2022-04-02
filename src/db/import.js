@@ -1,7 +1,7 @@
 const { MySQL } = require('./index');
-const { hashPayload } = require('../utils');
-const https = require('https');
+const { hashPayload, crearHora } = require('../utils');
 const axios = require("axios");
+
 
 async function inicializarDatabase() {
 
@@ -35,8 +35,6 @@ async function inicializarDatabase() {
 	const alumno6 = await crearAlumnoRandom(carrera.id);
 	const alumno7 = await crearAlumnoRandom(carrera.id);
 	const alumno8 = await crearAlumnoRandom(carrera.id);
-
-
 
 
 	const curso1 = await MySQL.Curso.create(
@@ -99,9 +97,31 @@ async function inicializarDatabase() {
 	const hora2 = await crearHora();
 	const hora3 = await crearHora();
 
-	await asignatura1.addHora(hora1, { through: { notas: "CREAR" } });
-	await asignatura2.addHora(hora2, { through: { notas: "CREAR" } });
-	await asignatura2.addHora(hora1, { through: { notas: "CREAR" } });
+
+	const asignaturaHora1 = await MySQL.AsignaturaHora.create(
+		{
+			asignatura_id: asignatura1.id,
+			hora_id: hora1.id,
+			notas: "Crear"
+		}
+	);
+
+	const asignaturaHora2 = await MySQL.AsignaturaHora.create(
+		{
+			asignatura_id: asignatura2.id,
+			hora_id: hora2.id,
+			notas: "Crear"
+		}
+	);
+
+	const asignaturaHora3 = await MySQL.AsignaturaHora.create(
+		{
+			asignatura_id: asignatura2.id,
+			hora_id: hora1.id,
+			notas: "Crear"
+		}
+	);
+
 
 
 	const examen1 = await MySQL.Examen.create(
@@ -150,41 +170,6 @@ async function inicializarDatabase() {
 
 }
 
-//TODO EXPORTAR A FUNCIONES EN /utils
-function getDiaRandom() {
-
-	const diasHabiles = ["Lunes", "Martes", "miercoles", "jueves", "viernes"];
-	const indice = Math.floor(Math.random() * (4 - 0 + 1) + 0);
-
-	return diasHabiles[indice];
-}
-
-function getHoraRandom() {
-	const horasHabiles = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
-	return horasHabiles[Math.floor(Math.random() * (horasHabiles.length) + 0)];
-}
-
-
-async function crearHora() {
-	let horarandom = getHoraRandom();
-	const duracion = 90;
-	const hora = await MySQL.Hora.create(
-		{
-			dia: getDiaRandom(),
-			hora_inicio: horarandom + ":00:00",
-			hora_fin: sumarHora(horarandom, duracion)
-		}
-	);
-	return hora;
-}
-
-function sumarHora(hora, duracion) {
-	const fecha = new Date(2016, 0, 2, hora, 0, 0);
-	fecha.setHours(hora);
-	fecha.setMinutes(fecha.getMinutes() + duracion);
-	return fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds()
-
-}
 
 const crearAlumnoRandom = async (carrera_id) => {
 	const url = "https://randomuser.me/api/?nat=es";
@@ -201,7 +186,7 @@ const crearAlumnoRandom = async (carrera_id) => {
 				carrera_id: carrera_id
 			});
 	} catch (error) {
-		console.log(error);
+		console.log("no se ha podido generar el alumno" + error);
 	}
 }
 

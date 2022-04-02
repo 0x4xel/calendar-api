@@ -20,7 +20,7 @@ examenalumnoRoutes.put('/examenAlumno/modificarMasivo/:asignatura_id/:examen_id'
 
 examenalumnoRoutes.delete('/examenAlumno/eliminar/:id', isAuthenticated, eliminarExamenAlumnoController);
 
-//TODO Funciones asignatura
+
 
 examenalumnoRoutes.get('/examenAlumno/:alumno_id', isAuthenticated, getExamenesAlumnoController);
 examenalumnoRoutes.get('/examenAlumno/:asignatura_id/:alumno_id', isAuthenticated, getNotasAsignaturaAlumnoController);

@@ -17,10 +17,7 @@ const ResponseMessages = require('../../constants/responseMessages');
 
 async function buscarAsignaturaController(req, res) {
   try {
-    // const validationErr = validateCreateUserRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+    
    
     let asignatura = await buscarAsignatura(req.params);
 
@@ -32,10 +29,7 @@ async function buscarAsignaturaController(req, res) {
 }
 async function crearAsignaturaController(req, res) {
   try {
-    // const validationErr = validateLoginRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+    
 
     const { nombre, curso_id, user_id, horas_semana } = req.body;
 
@@ -50,10 +44,7 @@ async function crearAsignaturaController(req, res) {
 
 async function eliminarAsignaturaController(req, res) {
   try {
-    // const validationErr = validateChangePasswordRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+     
 
     const { id: id } = req.params;
 

@@ -1,11 +1,8 @@
 const { sendResponse, jwt } = require('../utils');
 
 async function isAuthenticated(req, res, next) {
-  //TODO COMENTAR PARA AUTENTIFICAR
-  
   const token = req.header('x-auth-token');
-  next();
-  return 0;
+
   try {
     if (!token) {
       return sendResponse(res, 401, { tokenExpired: 0 }, 'Failed to Authenticate');
@@ -13,8 +10,8 @@ async function isAuthenticated(req, res, next) {
 
     const decoded = jwt.decryptAccessToken(token);
 
-    // if everything is good, save to request for use in other routes
-    req.user = decoded;
+    if (decoded == null)  return sendResponse(res, 401, { tokenExpired: 0 }, 'Corrupt Token');
+
     next();
   } catch (err) {
     if (err.name === 'TokenExpiredError') {

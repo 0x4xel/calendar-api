@@ -17,10 +17,7 @@ const ResponseMessages = require('../../constants/responseMessages');
 async function buscarHoraController(req, res) {
 
   try {
-    // const validationErr = validateCreateUserRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+    
 
     let hora = await buscarHora(req.params);
 
@@ -32,10 +29,7 @@ async function buscarHoraController(req, res) {
 
 async function crearHoraController(req, res) {
   try {
-    // const validationErr = validateLoginRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+    
 
     const {dia, hora_inicio, hora_fin } = req.body;
    
@@ -51,10 +45,7 @@ async function crearHoraController(req, res) {
 
 async function modificarHoraController(req, res) {
   try {
-    // const validationErr = validateChangeEmailRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+     
 
     const { hora_inicio, hora_fin } = req.body;
     const { id: id } = req.params;
@@ -74,10 +65,7 @@ async function modificarHoraController(req, res) {
 
 async function eliminarHoraController(req, res) {
   try {
-    // const validationErr = validateChangePasswordRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+     
 
     const { id: id } = req.params;
 

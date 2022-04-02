@@ -27,7 +27,7 @@ async function crearAsignaturaHora(asignatura_id, hora_id, notas) {
     err.code = 404;
     throw err;
   }
-
+  //TODO corregir
   const asignaturaHora = await asignatura.addHora(hora_id, {through: {notas: notas}});
 
 

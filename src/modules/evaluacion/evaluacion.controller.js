@@ -16,10 +16,7 @@ const ResponseMessages = require('../../constants/responseMessages');
 
 async function crearEvaluacionController(req, res) {
   try {
-    // const validationErr = validateLoginRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+    
 
     const { nombre } = req.body;
     const data = await crearEvaluacion({
@@ -34,10 +31,7 @@ async function crearEvaluacionController(req, res) {
 
 async function modificarEvaluacionController(req, res) {
   try {
-    // const validationErr = validateChangeEmailRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+     
 
     const { nombre } = req.body;
     const { id: id } = req.params;
@@ -56,10 +50,7 @@ async function modificarEvaluacionController(req, res) {
 
 async function eliminarEvaluacionController(req, res) {
   try {
-    // const validationErr = validateChangePasswordRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+     
 
     const { id: id } = req.params;
 

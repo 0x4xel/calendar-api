@@ -15,10 +15,7 @@ const ResponseMessages = require('../../constants/responseMessages');
 
 async function crearCarreraController(req, res) {
   try {
-    // const validationErr = validateLoginRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+    
 
     const { nombre } = req.body;
 
@@ -33,10 +30,7 @@ async function crearCarreraController(req, res) {
 
 async function eliminarCarreraController(req, res) {
   try {
-    // const validationErr = validateChangePasswordRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+     
     console.log(req.params);
     console.log("hola");
     const { id: id } = req.params;

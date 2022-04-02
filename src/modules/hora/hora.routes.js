@@ -15,7 +15,7 @@ horaRoutes.post('/hora/crear',isAuthenticated, crearHoraController);
 horaRoutes.put('/hora/modificar/:id', isAuthenticated, modificarHoraController);
 horaRoutes.delete('/hora/eliminar/:id', isAuthenticated, eliminarHoraController);
 
-//TODO Funciones hora
+
 
 horaRoutes.get('/hora', isAuthenticated, getHorasController);
 

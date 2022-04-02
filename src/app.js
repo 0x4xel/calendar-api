@@ -1,5 +1,4 @@
 const express = require('express');
-const requestValidator = require('express-validator');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const resultado = dotenv.config();
@@ -9,14 +8,10 @@ if (resultado.error) {
   throw resultado.error;
 }
 
-// Modelos
+// MODELOS Y CONSTANTES DE APP
 const { MySQL } = require("./db");
+const { PORT, HOST } = process.env; 
 const { inicializarDatabase} = require("./db/import");
-
-const { PORT } = process.env;	// puede que no sea necesario
-
-
-
 
 // creo la app
 const app = express();
@@ -31,10 +26,6 @@ app.use((req, res, next) => {
   res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
-
-// app.disable('x-powered-by');
-// app.use(requestValidator());
-
 
 // Rutas 
 app.get('/', (req, res) => {
@@ -52,25 +43,22 @@ app.use(function (req, res, next) {
   return next();
 });
 
+
+// Sincronizacion de la base de datos
 MySQL.sequelize
-  .sync({force: false})
+  .sync({ force: false})
   .then(() => {
-    app.listen(PORT, '192.168.0.18',() => console.info(`App running at http://localhost:${PORT}`));
-    //MySQL.sequelize.drop(); // drop all tables in the db
+    app.listen(PORT, HOST,() => console.info(`API corriendo bajo http://${HOST}:${PORT}`));
     // inicializarDatabase();
     console.info("Base de datos actualizada");
    
   }).then(() => {
-   
-  })
 
+  })
   .catch(err => console.log('error', err));
 
 
-
-
-
-// app.use(allRoutes);
+// CONTROLADOR DE RUTAS
 app.use("/", require('./routes'));
 
 module.exports = app;

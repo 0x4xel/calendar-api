@@ -22,10 +22,7 @@ const ResponseMessages = require('../../constants/responseMessages');
 async function buscarExamenAlumnoController(req, res) {
 
   try {
-    // const validationErr = validateCreateUserRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+    
    
     let examen = await buscarExamenAlumno(req.params);
 
@@ -37,10 +34,7 @@ async function buscarExamenAlumnoController(req, res) {
 
 async function crearExamenAlumnoController(req, res) {
   try {
-    // const validationErr = validateLoginRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+    
 
     const { alumno_id, examen_id, nota } = req.body;
     const data = await crearExamenAlumno({
@@ -55,10 +49,7 @@ async function crearExamenAlumnoController(req, res) {
 
 async function modificarExamenAlumnoController(req, res) {
   try {
-    // const validationErr = validateChangeEmailRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+     
 
     const { nota } = req.body;
     const { id: id } = req.params;
@@ -81,10 +72,7 @@ async function modificarExamenAlumnoController(req, res) {
 
 async function eliminarExamenAlumnoController(req, res) {
   try {
-    // const validationErr = validateChangePasswordRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+     
 
     const { id: id } = req.params;
     const data = await eliminarExamenAlumno(id);

@@ -12,7 +12,7 @@ const isAuthenticated = require('../../middlewares/isAuthenticated');
 cursoRouter.post('/curso/crear', isAuthenticated, crearCursoController);
 cursoRouter.delete('/curso/eliminar/:id',isAuthenticated,  eliminarCursoController);
 
-//TODO Funciones curso
+
 
 cursoRouter.get('/curso', getCursosController);
 cursoRouter.get('/cursosCarrera/:id', getCursosCarreraController);

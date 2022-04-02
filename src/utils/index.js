@@ -1,6 +1,8 @@
 const hashPayload = require('./hashPayload');
 const sendResponse = require('./sendResponse');
 const controlErrores = require('./ControlErrores');
+const crearHora = require('./Generadores');
+
 const {
   createAccessToken,
   decryptAccessToken,
@@ -13,6 +15,7 @@ module.exports = {
   hashPayload,
   sendResponse,
   controlErrores,
+  crearHora,
   jwt: {
     createAccessToken,
     decryptAccessToken,

@@ -2,9 +2,19 @@ const { MySQL } = require('../../db');
 
 const ResponseMessages = require('../../constants/responseMessages');
 
-//TODO FUNCION BUSCAR ALUMNO ASIGNATURA
-async function buscarAlumnoAsignatura({ id }) {
-  const res = await MySQL.AlumnoAsignatura.findByPk(id);
+async function buscarAlumnoAsignatura({ asignatura_id,alumno_id }) {
+  console.log({asignatura_id,alumno_id});
+  const res = await MySQL.Alumno.findAll({
+    where: {
+      id: alumno_id,
+    },
+    include: {
+      model: MySQL.Asignatura,
+      where: {
+        id:asignatura_id
+      }
+    }
+  });
 
   if (!res) {
     const err = new Error(ResponseMessages.errorBusqueda);

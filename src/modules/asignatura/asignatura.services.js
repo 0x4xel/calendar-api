@@ -13,8 +13,9 @@ async function buscarAsignatura({ id }) {
       include : {
         model:  MySQL.Carrera
       }
-    }, {
-      model:MySQL.Hora,
+    },
+    {
+      model:MySQL.AsignaturaHora,
     },
     {
       model:MySQL.Alumno,

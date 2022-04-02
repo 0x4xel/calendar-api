@@ -14,7 +14,7 @@ asignaturaRouter.get('/asignatura/buscar/:id',isAuthenticated, buscarAsignaturaC
 asignaturaRouter.post('/asignatura/crear',isAuthenticated, crearAsignaturaController);
 asignaturaRouter.delete('/asignatura/eliminar/:id',isAuthenticated, eliminarAsignaturaController);
 
-//TODO Funciones asignatura
+
 asignaturaRouter.get('/asignatura', isAuthenticated, getAsignaturasController);
 asignaturaRouter.get('/asignaturasCurso/:curso_id', isAuthenticated, getAsignaturasCursoController);
 

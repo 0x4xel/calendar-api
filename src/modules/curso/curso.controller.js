@@ -16,10 +16,7 @@ const ResponseMessages = require('../../constants/responseMessages');
 
 async function crearCursoController(req, res) {
   try {
-    // const validationErr = validateLoginRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+    
 
     const { nombre, carrera_id } = req.body;
 
@@ -34,10 +31,7 @@ async function crearCursoController(req, res) {
 
 async function eliminarCursoController(req, res) {
   try {
-    // const validationErr = validateChangePasswordRequest(req);
-    // if (validationErr) {
-    //   return sendResponse(res, 422, {}, validationErr[0].msg);
-    // }
+     
 
     const { id: id } = req.params;
 

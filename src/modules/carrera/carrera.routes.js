@@ -11,7 +11,7 @@ const isAuthenticated = require('../../middlewares/isAuthenticated');
 carreraRouter.post('/carrera/crear', isAuthenticated, crearCarreraController);
 carreraRouter.delete('/carrera/eliminar/:id',isAuthenticated, eliminarCarreraController);
 
-//TODO Funciones carrera
+
 
 carreraRouter.get('/carrera', getCarrerasController);
 

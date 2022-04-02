@@ -15,7 +15,6 @@ alumnoRoutes.post('/alumno/crear', isAuthenticated, crearAlumnoController);
 alumnoRoutes.put('/alumno/modificar/:id', isAuthenticated, modificarAlumnoController);
 alumnoRoutes.delete('/alumno/eliminar/:id', isAuthenticated, eliminarAlumnoController);
 
-//TODO Funciones alumno
 
 alumnoRoutes.get('/userAlumnos/:id',isAuthenticated, getAlumnosController);
 

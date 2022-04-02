@@ -15,7 +15,7 @@ examenRoutes.post('/examen/crear', isAuthenticated, crearExamenController);
 examenRoutes.put('/examen/modificar/:id', isAuthenticated, modificarExamenController);
 examenRoutes.delete('/examen/eliminar/:id', isAuthenticated, eliminarExamenController);
 
-//TODO Funciones alumno
+
 
 examenRoutes.get('/examen/asignatura/:asignatura_id', isAuthenticated, getExamenesAsignaturaController);
 

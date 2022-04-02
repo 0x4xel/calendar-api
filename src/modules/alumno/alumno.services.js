@@ -1,7 +1,6 @@
 const { MySQL } = require('../../db');
 
 const ResponseMessages = require('../../constants/responseMessages');
-const controlErrores = require('../../utils/ControlErrores');
 
 async function buscarAlumno({ id }) {
   const res = await MySQL.Alumno.findAll({
@@ -24,14 +23,11 @@ async function buscarAlumno({ id }) {
       },
       order: [
         [MySQL.Examen, 'fecha', 'ASC']
-      ]
-      
+      ] 
     },
     {
       model: MySQL.Carrera,
-    }],
-   
-    
+    }],  
   });
 
   if (!res) {
@@ -46,14 +42,15 @@ async function buscarAlumno({ id }) {
 
 }
 
-async function crearAlumno({ nombre, primerApellido, segundoApellido, curso_id }) {
+async function crearAlumno({ nombre, primerApellido, segundoApellido, curso_id, picture }) {
 
   const alumno = await MySQL.Alumno.create(
     {
       nombre: nombre,
       primerApellido: primerApellido,
       segundoApellido: segundoApellido,
-      curso_id: curso_id
+      curso_id: curso_id,
+      picture:picture
     }
   );
 
@@ -61,13 +58,14 @@ async function crearAlumno({ nombre, primerApellido, segundoApellido, curso_id }
 }
 
 async function modificarAlumno(
-  id, nombre, primerApellido, segundoApellido,
+  id, nombre, primerApellido, segundoApellido, picture
 ) {
 
   const res = await MySQL.Alumno.update({
     nombre: nombre,
     primerApellido: primerApellido,
     segundoApellido: segundoApellido,
+    picture:picture
   }, {
     where: { id: id }
   });
@@ -125,3 +123,4 @@ module.exports = {
   eliminarAlumno,
   getAlumnos
 };
+

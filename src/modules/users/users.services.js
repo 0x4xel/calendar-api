@@ -1,9 +1,9 @@
 const { MySQL } = require('../../db');
 const { hashPayload, jwt } = require('../../utils');
 
-async function createNewUser({email, password, primer_apellido, segundo_apellido }) {
+async function createNewUser({ email, password, primer_apellido, segundo_apellido }) {
   const hashedPassword = await hashPayload(password);
- 
+
   const user = await MySQL.User.create(
     {
       email: email,
@@ -16,7 +16,7 @@ async function createNewUser({email, password, primer_apellido, segundo_apellido
 
   return { user };
 
- 
+
 }
 
 async function loginUser({ email, password }) {
@@ -154,14 +154,16 @@ async function changeUserEmail({
   return {};
 }
 
-//TODO ELIMINAR DATOS DEL USUARIO (CONTRASEÑA HASHEADA)
 async function getAsignaturasUser(id) {
   const asignaturas = await MySQL.Asignatura.findAll({
-    where: {user_id: id },
-    include: [MySQL.User, MySQL.Hora],
+    where: { user_id: id },
+    
+    include: {
+      model: MySQL.AsignaturaHora,
+    }
   });
 
-  return {asignaturas};
+  return { asignaturas };
 }
 module.exports = {
   createNewUser,
