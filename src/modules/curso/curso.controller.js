@@ -1,8 +1,4 @@
-// const {
-//  // validadores (no se si usarlos)
 
-
-// } = require('./users.request.validators');
 const {
   crearCurso,
   eliminarCurso,

@@ -1,9 +1,4 @@
-// const {
-//   validateLoginRequest,
-//   validateCreateUserRequest,
-//   validateChangeEmailRequest,
-//   validateChangePasswordRequest,
-// } = require('./users.request.validators');
+
 const {
   loginUser,
   createNewUser,
